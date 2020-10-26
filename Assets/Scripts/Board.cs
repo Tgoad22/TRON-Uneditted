@@ -6,6 +6,7 @@ public class Board
 {
 	public Board(float Xsize, float Ysize, Interface parent)
 	{
+		//unity is so convenient good idea chandler
 		playerList = new SnakePlayer[2];
 		playerList[0] = new SnakePlayer(5, 10, GameObject.Find("Player1"), parent.player1Tail, this);
 		playerList[1] = new SnakePlayer(15, 10, GameObject.Find("Player2"), parent.player2Tail, this);
