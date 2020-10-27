@@ -38,7 +38,7 @@ public class Board
 		border.GetComponent<SpriteRenderer>().drawMode = SpriteDrawMode.Tiled;
 		border.GetComponent<SpriteRenderer>().size = new Vector2(Xsize, 0.5f);
 	}
-	
+	//Unity is absolutely amazing
 	public SnakePlayer[] playerList;
 	public List<PowerUp> powerupList;
 	public float maxX;
