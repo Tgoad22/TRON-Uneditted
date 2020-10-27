@@ -30,7 +30,7 @@ public class SnakePlayer
     {
         this.X = X;
         this.Y = Y;
-        lives = 5;
+        lives = 1;
         currDir = Direction.up;
 		visual = shade;
 		this.tail = new List<TailPiece>();
