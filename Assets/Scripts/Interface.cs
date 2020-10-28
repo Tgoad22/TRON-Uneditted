@@ -35,12 +35,20 @@ public class Interface : MonoBehaviour
     }
 
     // Update is called once per frame
-	void Update()
-	{
-		mode.Update(this);
-	}
-	
-	void OnGUI()
+    //void Update()
+    //{
+    //    mode.Update(this);
+    //    Debug.Log("Update time: " + Time.deltaTime);
+    //}
+
+    void FixedUpdate()
+    {
+        mode.Update(this);
+        Debug.Log("Update time: " + Time.deltaTime);
+    }
+
+
+    void OnGUI()
 	{
 		mode.OnGUI(this);
 	}
@@ -160,28 +168,28 @@ public class Play : screenMode
 	
     public void Update(Interface parent)
     {
-		if (Input.GetButtonDown("Player1Up")) {
+		if (Input.GetButton("Player1Up")) {
 			playboard.playerList[0].ChangeDir(SnakePlayer.Direction.up);
 		}
-		if (Input.GetButtonDown("Player1Down")) {
+		if (Input.GetButton("Player1Down")) {
 			playboard.playerList[0].ChangeDir(SnakePlayer.Direction.down);
 		}
-		if (Input.GetButtonDown("Player1Left")) {
+		if (Input.GetButton("Player1Left")) {
 			playboard.playerList[0].ChangeDir(SnakePlayer.Direction.left);
 		}
-		if (Input.GetButtonDown("Player1Right")) {
+		if (Input.GetButton("Player1Right")) {
 			playboard.playerList[0].ChangeDir(SnakePlayer.Direction.right);
 		}
-		if (Input.GetButtonDown("Player2Up")) {
+		if (Input.GetButton("Player2Up")) {
 			playboard.playerList[1].ChangeDir(SnakePlayer.Direction.up);
 		}
-		if (Input.GetButtonDown("Player2Down")) {
+		if (Input.GetButton("Player2Down")) {
 			playboard.playerList[1].ChangeDir(SnakePlayer.Direction.down);
 		}
-		if (Input.GetButtonDown("Player2Left")) {
+		if (Input.GetButton("Player2Left")) {
 			playboard.playerList[1].ChangeDir(SnakePlayer.Direction.left);
 		}
-		if (Input.GetButtonDown("Player2Right")) {
+		if (Input.GetButton("Player2Right")) {
 			playboard.playerList[1].ChangeDir(SnakePlayer.Direction.right);
 		}
         playboard.Collide();

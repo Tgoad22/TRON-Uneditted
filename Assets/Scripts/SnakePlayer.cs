@@ -110,7 +110,7 @@ public class SnakePlayer
 		//Check self collision
 		if (CheckCollideTail(X, Y))
 		{
-			Die();
+ 			    Die();
 		}
 		TailPiece newTrail = new TailPiece(X, Y, tailTimer, new GameObject("tail", typeof(SpriteRenderer)));
 		tail.Add(newTrail);
@@ -165,9 +165,7 @@ public class SnakePlayer
 			return;
 		}
 		GameObject.Find("CrashSound").GetComponent<AudioSource>().Play();
-		foreach (TailPiece piece in tail) {
-			GameObject.Destroy(piece.visual);
-		}
+
 		tail = new List<TailPiece>();
 		lives--;
 		invincible = 60;
@@ -175,6 +173,15 @@ public class SnakePlayer
 		X = pos.x;
 		Y = pos.y;
     }
+
+    public void ClearTail()
+    {		
+        foreach (TailPiece piece in tail) 
+        {
+			GameObject.Destroy(piece.visual);
+		}
+    }
+
 
     // Update is called once per frame
     public void Update()
