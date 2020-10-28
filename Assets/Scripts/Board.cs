@@ -8,9 +8,9 @@ public class Board
 	{
 		//unity is so convenient good idea chandler
 		playerList = new SnakePlayer[2];
-		playerList[0] = new SnakePlayer(5, 10, GameObject.Find("Player1"), parent.player1Tail, this);
-		playerList[1] = new SnakePlayer(15, 10, GameObject.Find("Player2"), parent.player2Tail, this);
-		powerupList = new List<PowerUp>();
+		playerList[0] = new SnakePlayer(1, 1, GameObject.Find("Player1"), parent.player1Tail, this);
+		playerList[1] = new SnakePlayer(24, 1, GameObject.Find("Player2"), parent.player2Tail, this);
+		//powerupList = new List<PowerUp>();
 		maxX = Xsize;
 		maxY = Ysize;
 		this.parent = parent;
@@ -40,7 +40,7 @@ public class Board
 	}
 	
 	public SnakePlayer[] playerList;
-	public List<PowerUp> powerupList;
+	//public List<PowerUp> powerupList;
 	public float maxX;
 	public float maxY;
 	public Interface parent;
@@ -48,7 +48,7 @@ public class Board
 	public void GameEnd()
 	{
 		playerList = null;
-		powerupList = null;
+		//powerupList = null;
 		GameObject.Destroy(GameObject.Find("BorderBottom"));
 		GameObject.Destroy(GameObject.Find("BorderTop"));
 		GameObject.Destroy(GameObject.Find("BorderLeft"));
@@ -58,11 +58,11 @@ public class Board
 	{
 		foreach (SnakePlayer player in playerList) {
 		    //Players touching powerups
-			foreach (PowerUp powerup in powerupList) {
-				if (player.CheckCollideHead(powerup.X, powerup.Y)) {
-					powerup.Effect(player);
-				}
-			}
+			//foreach (PowerUp powerup in powerupList) {
+			//	if (player.CheckCollideHead(powerup.X, powerup.Y)) {
+			//		powerup.Effect(player);
+			//	}
+			//}
 			//Players touching walls
 			if (player.Y > maxY || player.Y < 0 || player.X > maxX || player.X < 0) {
 				player.Die();
@@ -105,12 +105,25 @@ public class Board
 		if (playerList[0].lives == 0 && playerList[1].lives == 0) {
 			parent.winner = 0;
 			parent.State(Interface.Screen.Over);
+			playerList[0].ClearTail();
+			playerList[1].ClearTail();
+			playerList[0].ChangeDir(SnakePlayer.Direction.up);
+			playerList[1].ChangeDir(SnakePlayer.Direction.up);
 		} else if (playerList[0].lives == 0) {
 			parent.winner = 2;
 			parent.State(Interface.Screen.Over);
-		} else if (playerList[1].lives == 0) {
+			playerList[0].ClearTail();
+			playerList[1].ClearTail();
+			playerList[0].ChangeDir(SnakePlayer.Direction.up);
+			playerList[1].ChangeDir(SnakePlayer.Direction.up);
+		}
+		else if (playerList[1].lives == 0) {
 			parent.winner = 1;
 			parent.State(Interface.Screen.Over);
+			playerList[0].ClearTail();
+			playerList[1].ClearTail();
+			playerList[0].ChangeDir(SnakePlayer.Direction.up);
+			playerList[1].ChangeDir(SnakePlayer.Direction.up);
 		}
 	}
 	public void Draw()
