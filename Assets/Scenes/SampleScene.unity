@@ -1752,7 +1752,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9a49194b97d440146b14634b0ccdbaee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9912085c094d4d44f96f778f14786176, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2050,5 +2050,5 @@ MonoBehaviour:
   winner: 0
   screenborder: {fileID: 2800000, guid: 2717c93535e52214eb16e86d3fba079d, type: 3}
   player1Tail: {fileID: 21300000, guid: 168e93bda3ff99a468bb71f70841c8f0, type: 3}
-  player2Tail: {fileID: 21300000, guid: 2cb2e76fe5dc3374b9dcf52d289a3738, type: 3}
+  player2Tail: {fileID: 21300000, guid: 258542f87fa4721418e2ecb8d0a7e995, type: 3}
   playborder: {fileID: 21300000, guid: cf6fd5c42cb1405458856ef4a2d4799e, type: 3}
