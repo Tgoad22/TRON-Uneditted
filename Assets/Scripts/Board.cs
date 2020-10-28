@@ -8,8 +8,8 @@ public class Board
 	{
 		//unity is so convenient good idea chandler
 		playerList = new SnakePlayer[2];
-		playerList[0] = new SnakePlayer(1, 1, GameObject.Find("Player1"), parent.player1Tail, this);
-		playerList[1] = new SnakePlayer(24, 1, GameObject.Find("Player2"), parent.player2Tail, this);
+		playerList[0] = new SnakePlayer(5, 10, GameObject.Find("Player1"), parent.player1Tail, this);
+		playerList[1] = new SnakePlayer(15, 10, GameObject.Find("Player2"), parent.player2Tail, this);
 		//powerupList = new List<PowerUp>();
 		maxX = Xsize;
 		maxY = Ysize;
