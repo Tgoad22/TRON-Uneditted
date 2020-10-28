@@ -165,8 +165,11 @@ public class SnakePlayer
 			return;
 		}
 		GameObject.Find("CrashSound").GetComponent<AudioSource>().Play();
-
-		tail = new List<TailPiece>();
+        foreach (TailPiece piece in tail)
+        {
+            GameObject.Destroy(piece.visual);
+        }
+        tail = new List<TailPiece>();
 		lives--;
 		invincible = 60;
 		Vector2 pos = parent.GetSafePos();

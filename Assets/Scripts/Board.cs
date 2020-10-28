@@ -107,16 +107,23 @@ public class Board
 			parent.State(Interface.Screen.Over);
 			playerList[0].ClearTail();
 			playerList[1].ClearTail();
+			playerList[0].ChangeDir(SnakePlayer.Direction.up);
+			playerList[1].ChangeDir(SnakePlayer.Direction.up);
 		} else if (playerList[0].lives == 0) {
 			parent.winner = 2;
 			parent.State(Interface.Screen.Over);
 			playerList[0].ClearTail();
 			playerList[1].ClearTail();
-		} else if (playerList[1].lives == 0) {
+			playerList[0].ChangeDir(SnakePlayer.Direction.up);
+			playerList[1].ChangeDir(SnakePlayer.Direction.up);
+		}
+		else if (playerList[1].lives == 0) {
 			parent.winner = 1;
 			parent.State(Interface.Screen.Over);
 			playerList[0].ClearTail();
 			playerList[1].ClearTail();
+			playerList[0].ChangeDir(SnakePlayer.Direction.up);
+			playerList[1].ChangeDir(SnakePlayer.Direction.up);
 		}
 	}
 	public void Draw()
