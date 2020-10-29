@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class Interface : MonoBehaviour
 {
-	
+	//initializes game ojbects and sprites
 	private GameObject MainCamera;
 	public GameObject CameraPlayer1;
 	public GameObject CameraPlayer2;
@@ -41,35 +41,37 @@ public class Interface : MonoBehaviour
     //    Debug.Log("Update time: " + Time.deltaTime);
     //}
 
+	//serves as timer for game
     void FixedUpdate()
     {
         mode.Update(this);
-        Debug.Log("Update time: " + Time.deltaTime);
+        //Debug.Log("Update time: " + Time.deltaTime);
     }
 
-
+	//GUI stuff
     void OnGUI()
 	{
 		mode.OnGUI(this);
 	}
 	
+	//tells game which camera and mode is active
 	public void State(Screen n)
 	{
 		switch (n) {
-			case Screen.Title :
+			case Screen.Title : //screen that shows at start game
 			    MainCamera.GetComponent<Camera>().enabled = true;
 				CameraPlayer1.GetComponent<Camera>().enabled = false;
 				CameraPlayer2.GetComponent<Camera>().enabled = false;
 				MainCamera.GetComponent<Transform>().position = new Vector3(-100, -124, -100);
 				mode = new Title();
 				break;
-			case Screen.Play :
+			case Screen.Play : //screen that shows during play
 				MainCamera.GetComponent<Camera>().enabled = false;
 				CameraPlayer1.GetComponent<Camera>().enabled = true;
 				CameraPlayer2.GetComponent<Camera>().enabled = true;
 				mode = new Play(2, 25, 25, this);
 				break;
-			case Screen.Over :
+			case Screen.Over : //game over screen
 			    MainCamera.GetComponent<Camera>().enabled = true;
 				CameraPlayer1.GetComponent<Camera>().enabled = false;
 				CameraPlayer2.GetComponent<Camera>().enabled = false;
@@ -96,13 +98,13 @@ interface screenMode
 //Handles Title Screen control
 public class Title : screenMode
 {
-	public Title() {
+	public Title() { //plays music
 		GameObject.Find("EndMusic").GetComponent<AudioSource>().Stop();
 		GameObject.Find("MenuMusic").GetComponent<AudioSource>().Play();
 	}
 	public void Update(Interface parent)
 	{
-		if (Input.GetButton("Player1Fire") && Input.GetButton("Player2Fire"))
+		if (Input.GetButton("Player1Fire") && Input.GetButton("Player2Fire")) //start buttons for game
 		{
 			parent.State(Interface.Screen.Play);
 		}
@@ -123,6 +125,7 @@ public class Over : screenMode
 	private Over(){}
 	public Over(int winner)
 	{
+		//plays winner music
 		this.winner = winner;
 		GameObject.Find("GameMusic").GetComponent<AudioSource>().Stop();
 		GameObject.Find("EndMusic").GetComponent<AudioSource>().Play();
@@ -132,6 +135,7 @@ public class Over : screenMode
 	private bool returning = false;
 	public void Update(Interface parent)
 	{
+		//code for restarting the game
 		if (Input.GetButton("Player1Fire") && Input.GetButton("Player2Fire"))
 		{
 			returning = true;
@@ -160,14 +164,16 @@ public class Play : screenMode
 	private Play(){}	//No parameterless constructor
 	public Play(int playerCount, float boardSizeX, float boardSizeY, Interface parent)
 	{
+		//initializes play stuff
 		lifecount = new int[playerCount];
 		playboard = new Board(boardSizeX, boardSizeY, parent);
 		GameObject.Find("GameMusic").GetComponent<AudioSource>().Play();
 		GameObject.Find("MenuMusic").GetComponent<AudioSource>().Stop();
-	}
+	}	
 	
     public void Update(Interface parent)
     {
+		//code for movement of player bikes
 		if (Input.GetButton("Player1Up")) {
 			playboard.playerList[0].ChangeDir(SnakePlayer.Direction.up);
 		}
@@ -192,8 +198,10 @@ public class Play : screenMode
 		if (Input.GetButton("Player2Right")) {
 			playboard.playerList[1].ChangeDir(SnakePlayer.Direction.right);
 		}
+		//checks for collision
         playboard.Collide();
 		playboard.Update();
+		//camera follows each player
 		var cam1trans = parent.CameraPlayer1.GetComponent<Transform>();
 		var cam2trans = parent.CameraPlayer2.GetComponent<Transform>();
 		cam1trans.position = new Vector3(playboard.playerList[0].X, playboard.playerList[0].Y, cam1trans.position.z);
@@ -202,10 +210,12 @@ public class Play : screenMode
 	
 	public void OnGUI(Interface parent)
 	{
+		//draws board at beginning of each game
 		playboard.Draw();
 		GUI.DrawTexture(new Rect(Screen.width/2-10, -10, 30, Screen.height+20), parent.screenborder);
 	}
 	
+	//stuff
 	public void Hurt(Interface parent, SnakePlayer n)
 	{
 		lifecount[Array.IndexOf(playboard.playerList, n)]--;

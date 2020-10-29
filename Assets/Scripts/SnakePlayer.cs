@@ -52,6 +52,7 @@ public class SnakePlayer
 	public float hitdist = 0.1f;
 	public int invincible;
 
+    //flag for collision with other player
     public bool CheckCollide(float X, float Y)
     {
         bool collision = false;
@@ -66,6 +67,7 @@ public class SnakePlayer
         return collision;
     }
 	
+    //flag for collision with tail
 	public bool CheckCollideTail(float X, float Y)
 	{
         bool collision = false;
@@ -80,16 +82,19 @@ public class SnakePlayer
         return collision;
 	}
 
+    //flag for collision with head
     public bool CheckCollideHead(float X, float Y)
     {
         return (this.X - hitdist < X && this.X + hitdist > X) && (this.Y - hitdist < Y && this.Y + hitdist > Y);
     }
 
+    //draws
     public void Draw()
     {
 		visual.GetComponent<Transform>().position = new Vector3(X, Y, -50);
     }
 
+    //switch case for directional movement
     public void Move()
     {
         switch(currDir)
@@ -110,8 +115,9 @@ public class SnakePlayer
 		//Check self collision
 		if (CheckCollideTail(X, Y))
 		{
- 			    Die();
+ 			    Die(); //kills if crashes
 		}
+        //continuously adds tron trail effect
 		TailPiece newTrail = new TailPiece(X, Y, tailTimer, new GameObject("tail", typeof(SpriteRenderer)));
 		tail.Add(newTrail);
 		newTrail.visual.GetComponent<Transform>().position = new Vector3(newTrail.Xpos, newTrail.Ypos, -40);
@@ -120,7 +126,7 @@ public class SnakePlayer
 
     public void ChangeDir(Direction dir)
     {
-
+        //changes direction for the tron bikes
         if (currDir == Direction.down && dir == Direction.up)
         {
             return;
@@ -159,6 +165,7 @@ public class SnakePlayer
         }
     }
 
+    //resets game and destroys trail on crash, plays sound effect for crash
     public void Die()
     {
 		if (invincible > 0) {
@@ -177,6 +184,7 @@ public class SnakePlayer
 		Y = pos.y;
     }
 
+    //more tail clearing code
     public void ClearTail()
     {		
         foreach (TailPiece piece in tail) 
