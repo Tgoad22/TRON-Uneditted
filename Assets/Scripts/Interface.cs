@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
@@ -21,6 +23,7 @@ public class Interface : MonoBehaviour
 	public Sprite playborder;
 	
 	public enum Screen { None, Title, Play, Over };
+		
 	
     // Start is called before the first frame update
     void Start()
@@ -45,8 +48,12 @@ public class Interface : MonoBehaviour
     void FixedUpdate()
     {
         mode.Update(this);
-        //Debug.Log("Update time: " + Time.deltaTime);
-    }
+		//Debug.Log("Update time: " + Time.deltaTime);
+		if (Input.GetKey("escape"))
+		{
+			Application.Quit();
+		}
+	}
 
 	//GUI stuff
     void OnGUI()
@@ -143,8 +150,9 @@ public class Over : screenMode
 		if (returning && !Input.GetButton("Player1Fire") && !Input.GetButton("Player2Fire"))
 		{
 			parent.State(Interface.Screen.Title);
-		}
-	}
+		}       
+    }
+
 	public void OnGUI(Interface parent)
 	{
 		;
