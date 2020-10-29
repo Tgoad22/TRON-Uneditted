@@ -6,7 +6,7 @@ public class Board
 {
 	public Board(float Xsize, float Ysize, Interface parent)
 	{
-		//unity is so convenient good idea chandler
+		//Unity is so convenient good idea chandler
 		playerList = new SnakePlayer[2];
 		playerList[0] = new SnakePlayer(5, 10, GameObject.Find("Player1"), parent.player1Tail, this);
 		playerList[1] = new SnakePlayer(15, 10, GameObject.Find("Player2"), parent.player2Tail, this);
@@ -14,6 +14,7 @@ public class Board
 		maxX = Xsize;
 		maxY = Ysize;
 		this.parent = parent;
+		//Initalizes border as an object and sets the size
 		GameObject border;
 		border = new GameObject("BorderBottom", typeof(SpriteRenderer));
 		border.GetComponent<Transform>().position = new Vector3(0, 0, -50);
@@ -45,6 +46,7 @@ public class Board
 	public float maxY;
 	public Interface parent;
 	
+	//Kills border at end of every game
 	public void GameEnd()
 	{
 		playerList = null;
@@ -79,6 +81,7 @@ public class Board
 		}
 	}
 	
+	//Respawns the Tron bikes after death
 	public Vector2 GetSafePos()
 	{
 		Vector2 pos = new Vector2(0, 0);
@@ -96,6 +99,7 @@ public class Board
 		return pos;
 	}
 	
+	//Moves tron bikes, creates trails, ensures bikes are facing right directions, and switches camera to game start/over
 	public void Update()
 	{
 		foreach (SnakePlayer player in playerList) {
@@ -126,6 +130,8 @@ public class Board
 			playerList[1].ChangeDir(SnakePlayer.Direction.up);
 		}
 	}
+
+	//Puts Tron bikes on the board
 	public void Draw()
 	{
 		foreach (SnakePlayer player in playerList) {
